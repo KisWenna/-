@@ -1,0 +1,43 @@
+#  输入n值(1<=n<=1000)、n个非降序排列的整数以及要查找的数x，
+使用二分查找算法查找x，输出x所在的下标（0~n-1）及比较次数。
+若x不存在，输出-1和比较次数 #
+
+#include<iostream>
+using namespace std;
+
+int search(int a[] , int left , int right ,int x){
+	int count = 0 , k = 0;                                  //比较次数 定义为count , 设置一个标志位k
+	while(left < right && k == 0){                            
+		int mid = (left + right)/2 ;                  //中点
+		count ++ ;                                    //比较次数+1
+   
+   //若查找成功 ， 标志位置1 ，即停止循环
+		if(a[mid] == x) {                            
+			cout << mid ;   //中点元素值即为要查找的值
+      k = 1 ;
+		} 
+	 //若中间值不是查找值 ， 改变right , left	
+		else{                            
+			if(x < a[mid]) right = mid - 1 ;
+			if(x > a[mid]) left = mid + 1 ;
+		} 
+	}
+    if(left <= right) {    
+    	count ++ ;
+		if(a[mid] == x) cout << mid ;
+		else  cout << -1 ;
+}
+    return count ;
+	 
+}
+int main(){
+	int n , a[1001] , x , sum;
+	cin >> n ;
+	for(int i = 0 ;i < n; i++){
+		cin >> a[i] ;
+	}
+	cin >> x ;
+	sum = search(a , 0 ,n-1, x) ;    //返回下标 
+	cout<<endl ;
+	cout<<sum ;
+}
